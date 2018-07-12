@@ -1,36 +1,34 @@
 package Matrix;
 
 public class Spiral_Matrix_54 {
-//four bound
+//four boundary
 
-public List<Integer> spiralOrder(int[][] matrix) {
-       List<Integer> res=new LinkedList<>();
-       if(matrix==null||matrix.length==0) return res;
-       int left=0,top=0;
-       int down=matrix.length-1;
-       int right=matrix[0].length-1;
-       while(top<=down&&left<=right){            
-            for(int j=left;j<=right;j++){  //to right
-                res.add(matrix[top][j]);
-           }
-            top++;                       
-            for(int i=top;i<=down;i++){  //down
-                res.add(matrix[i][right]);
-           }
-            right--;          
-           //prevent after rStart++, rStart>rEnd
-            for(int j=right;top<=down&&j>=left;j--){//to left  
-                res.add(matrix[down][j]);
-            }    
-            down--;                                             
-            //to prevent after cEnd--, cStart>cEnd
-            for(int i=down;left<=right&&i>=top;i--){ //up
-                res.add(matrix[i][left]);
-            }  
-            left++;
-        }
-        return res;
-    }
+	public List<Integer> spiralOrder(int[][] matrix) {
+	       List<Integer> res=new LinkedList<>();
+	       if(matrix==null||matrix.length==0) return res;
+	       int left=0,top=0;
+	       int down=matrix.length-1;
+	       int right=matrix[0].length-1;
+	       while(true){            
+	            for(int j=left;j<=right;j++)  //to right
+	                res.add(matrix[top][j]);
+	           if(++top>down) break;
+	                                
+	            for(int i=top;i<=down;i++)  //down
+	                res.add(matrix[i][right]);
+	           if(--right<left) break;
+	                   
+	            for(int j=right;top<=down&&j>=left;j--)//to left  
+	                res.add(matrix[down][j]);
+	            if(--down<top) break;                                           
+	          
+	            for(int i=down;left<=right&&i>=top;i--){ //up
+	                res.add(matrix[i][left]);
+	            }  
+	           if(++left>right) break;
+	        }
+	        return res;
+	    }
 
 //direction matrix
 public List<Integer> spiralOrder(int[][] matrix) {
