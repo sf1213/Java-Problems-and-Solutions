@@ -92,6 +92,30 @@ public class Binary_Tree_Postorder_Traversal_145 {
             node=node.left;
         }
     }
+    
+    
+//Another concise iteration
+public List<Integer> postorderTraversal(TreeNode root) {      
+        LinkedList<Integer> res=new LinkedList<>();
+        Stack<TreeNode> s=new Stack<>();
+        TreeNode cur=root,pre=null;
+        while(!s.isEmpty()||cur!=null){
+            while(cur!=null){ //push all the left
+                s.push(cur);
+                cur=cur.left;
+            }            
+            cur=s.peek();
+            if(cur.right!=null&&cur.right!=pre){
+                cur=cur.right;
+            }else{
+                pre=s.pop();
+                res.add(pre.val);
+                cur=null;
+            }
+        }
+        return res;
+    }
+    
     //Morris
     public List<Integer> postorderTraversal(TreeNode root) {
         LinkedList<Integer> res=new LinkedList<>();
