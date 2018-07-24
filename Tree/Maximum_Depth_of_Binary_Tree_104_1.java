@@ -4,15 +4,7 @@ import java.util.Queue;
 import java.util.Stack;
 
 public class Maximum_Depth_of_Binary_Tree_104_1 {
-	// Definition for a binary tree node.
-	public class TreeNode {
-		int val;
-		TreeNode left;
-		TreeNode right;
-		TreeNode(int x) {
-			val = x;
-		}
-	}
+
 	// DFS-Postorder-recursion
 
 	public int maxDepth(TreeNode root) {
@@ -22,7 +14,7 @@ public class Maximum_Depth_of_Binary_Tree_104_1 {
 		return 1 + Math.max(maxDepth(root.left), maxDepth(root.right));
 	}
 
-	// DFS-Preorder-Iteration
+	// DFS-Preorder-Iteration Two Stack
 
 	public int maxDepth(TreeNode root) {
 		if (root == null) {
@@ -54,7 +46,7 @@ public class Maximum_Depth_of_Binary_Tree_104_1 {
 		return max;
 	}
 
-	// BFS-levelorder-Iteration
+	// BFS-levelorder-Iteration One queue
 	public int maxDepth(TreeNode root) {
 		if (root == null) {
 			return 0;
@@ -78,4 +70,32 @@ public class Maximum_Depth_of_Binary_Tree_104_1 {
 		return depth;
 	}
 
+	
+//Iteration, Post-order, One stack
+public int maxDepth(TreeNode root) {
+        if(root==null){return 0;}
+        int depth=0,maxHeight=0;
+        Stack<TreeNode> stack=new Stack<>();
+        TreeNode cur=root, pre=null;
+        while(!stack.isEmpty()||cur!=null){
+            while(cur!=null){
+                stack.push(cur);
+                depth++;
+                cur=cur.left;
+            }
+           cur=stack.peek();            
+            if(cur.right!=null&&cur.right!=pre){
+                cur=cur.right;
+            }else{
+                if(cur.left==null&&cur.right==null){
+                    maxHeight=Math.max(maxHeight,depth);
+                 }
+                pre=stack.pop();
+                depth--;
+                cur=null;
+            }
+        }        
+        return maxHeight;
+    }
+	
 }
