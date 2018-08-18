@@ -1,7 +1,7 @@
 package Binary_Search;
 
 public class Pow_x_n_50 {
-	//Recursion, 14ms
+	//Recursion, double x,  14ms
 	public double myPow(double x, int n) {
         if(n == 0){
             return 1;
@@ -50,6 +50,22 @@ public class Pow_x_n_50 {
 	        }
 	        
 	        return (n % 2 == 0) ? myPow(x * x, n / 2) : x * myPow(x * x, n / 2);
+	    }
+		
+	//Recursion, double myPow,12ms
+		public double myPow(double x, int n) {
+	        if(n == 0){
+	            return 1;
+	        }
+	        
+	        double tmp = myPow(x, n / 2);
+	        
+	        if(n < 0){
+	            x = 1 / x;
+	            n = -n;
+	        }
+	       
+	        return (n % 2 == 0) ? tmp * tmp : x * tmp * tmp;
 	    }
 	
 	//Iteration, 12ms
