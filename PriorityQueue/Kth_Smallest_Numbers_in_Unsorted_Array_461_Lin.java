@@ -65,4 +65,45 @@ public class Kth_Smallest_Numbers_in_Unsorted_Array_461_Lin {
         }
         return pq.peek();
      }
+    
+    //Three-way QuickSelect
+    public int kthSmallest(int k, int[] nums) {
+        // write your code here
+        if(nums == null || nums.length == 0){
+            return -1;
+        }
+        
+        return partition(nums, 0, nums.length - 1, k);
+    }
+    
+    private int partition(int[] nums, int left, int right, int k){
+        Random rand = new Random();
+        int pivotIndex = rand.nextInt(right - left + 1) + left;
+        swap(nums, pivotIndex, left);
+        int pivot = nums[left];
+        int lt = left, gt = right, i = left + 1;
+        while(i <= gt){
+            if(nums[i] < pivot){
+                swap(nums, i++, lt++);
+            }else if(nums[i] > pivot){
+                swap(nums, i, gt--);
+            }else{
+                i++;
+            }
+        }
+        
+        if(k - 1 < gt){
+            return partition(nums, left, gt - 1, k);
+        }else if(k - 1 > lt){
+            return partition(nums, lt + 1, right, k);
+        }else{
+            return nums[k - 1];
+        }
+    }
+    
+    private void swap(int[] nums, int i, int j){
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
+    }
 }
